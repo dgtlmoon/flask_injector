@@ -365,7 +365,9 @@ class FlaskInjector:
 
 def process_dict(d: Dict, injector: Injector) -> None:
     for key, value in d.items():
-        if isinstance(value, list):
+        if isinstance(value, LocalProxy):
+            pass
+        elif isinstance(value, list):
             process_list(value, injector)
         elif hasattr(value, '__call__'):
             d[key] = wrap_fun(value, injector)
